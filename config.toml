@@ -1,0 +1,75 @@
+# Configuration file for zom, the Zed Offline Mirror.
+
+# Path to the directory of the mirror.
+directory = "dist"
+
+# Options for the `sync` command.
+[sync]
+
+# Minimum extension schema version.
+min_schema_version = 0
+
+# Maximum extension schema version.
+# As of 2026-01-20, the maximum is 2. If unsure and some extensions are
+# missing, use a large value.
+max_schema_version = 2
+
+# Minimum supported version for the WASM api.
+min_wasm_api_version = "0.0.0"
+
+# Maximum supported version for the WASM api.
+# As of 2026-01-20, max version used in extensions is 0.7.0.
+max_wasm_api_version = "0.7.0"
+
+# URL to an existing zed api server hosting the release assets.
+upstream_cloud_url = "https://cloud.zed.dev"
+
+# URL to an existing zed api server hosting the extensions.
+upstream_api_url = "https://api.zed.dev"
+
+# URL to an existing zed server.
+upstream_zed_url = "https://zed.dev"
+
+# Which assets should be synced for zed releases.
+# Assets are given in form <name>-<os>-<arch>.
+assets = [
+    "zed-linux-aarch64",
+    "zed-linux-x86_64",
+    "zed-macos-aarch64",
+    "zed-macos-x86_64",
+    "zed-windows-aarch64",
+    "zed-windows-x86_64",
+    "zed-remote-server-linux-aarch64",
+    "zed-remote-server-linux-x86_64",
+    "zed-remote-server-macos-aarch64",
+    "zed-remote-server-macos-x86_64",
+]
+
+
+# Options for the `serve` command.
+[serve]
+
+# Server listen address.
+listen_addr = "0.0.0.0:8080"
+
+
+# Options for the `prune` command.
+[prune]
+
+# Number of latest release versions to keep.
+keep_latest_releases = 1
+
+# Number of latest extension versions to keep.
+keep_latest_extensions = 1
+
+# A list of release versions that will not be removed.
+pin_releases = [
+    # "0.220.7"
+]
+
+# A list of extensions and versions that will not be removed.
+#
+# Format: <extension>=<version>
+pin_extensions = [
+    # "html=0.3.0"
+]
