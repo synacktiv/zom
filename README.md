@@ -40,9 +40,12 @@ zom sync -d /path/to/mirror
 
 # serve the mirror on localhost:8080
 zom serve -d /path/to/mirror -l localhost:8080
+
+# prune downloaded artifacts on the mirror
+zom prune -d /path/to/mirror
 ```
 
-See `zom sync --help` and `zom serve --help` for more options for these commands.
+See `zom sync --help`, `zom prune --help` and `zom serve --help` for more options for these commands.
 
 Also see `zom --help` for more options provided by the binary.
 
