@@ -100,6 +100,10 @@ pub async fn zom_serve(opts: ServeOpts) -> Result<()> {
         dir: MirrorDirectory::new(opts.mirror_directory),
     };
 
+    let releases_router = Router::new()
+        .route("/{version}/asset", get(release::get_release_manifest))
+        .route("/{version}/download", get(release::download_asset));
+
     let extensions_router = Router::new()
         .route("/", get(extensions::list_extensions))
         .route("/updates", get(extensions::update_extension))
@@ -120,17 +124,10 @@ pub async fn zom_serve(opts: ServeOpts) -> Result<()> {
         .route("/version", get(version::version_handler))
         .route("/install.sh", get(static_files::serve_installation_script))
         .route(
-            "/releases/stable/{version}/asset",
-            get(release::get_release_manifest),
-        )
-        .route(
-            "/releases/stable/{version}/download",
-            get(release::download_asset),
-        )
-        .route(
             "/api/release_notes/v2/stable/{version}",
             get(changelogs::serve_changelogs),
         )
+        .nest("/releases/stable", releases_router)
         .nest("/extensions", extensions_router)
         .layer(trace_layer())
         .with_state(Arc::new(app_state));
